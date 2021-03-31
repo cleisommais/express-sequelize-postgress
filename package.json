@@ -3,10 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./postgres --copy-files",
     "debug": "set DEBUG=* & nodemon --exec babel-node ./bin/www.js",
     "dev": "nodemon --exec babel-node ./bin/www.js",
-    "start": "node bin/www.js"
+    "test": "cross-env NODE_ENV=test jest --testTimeout=1000",
+    "pretest": "cross-env NODE_ENV=test npm run db:reset",
+    "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -21,9 +23,28 @@
     "@babel/core": "^7.13.14",
     "@babel/node": "^7.13.13",
     "@babel/preset-env": "^7.13.12",
+    "cross-env": "^7.0.3",
     "dotenv": "^8.0.0",
+    "jest": "^26.6.3",
     "nodemon": "^1.18.9",
+    "regenerator-runtime": "^0.13.7",
     "rimraf": "^2.6.3",
-    "sequelize-cli": "^6.2.0"
+    "sequelize-cli": "^6.2.0",
+    "supertest": "^6.1.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/dist/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": -10
+      }
+    }
   }
 }
