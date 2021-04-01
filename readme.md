@@ -17,7 +17,7 @@
 * `npm install --save pg pg-hstore`
 * `sequelize init`
 * `sequelize model:create --name users --attributes email:string,password:string`
-* `sequelize model:create --name User --attributes "email:[type:string, unique:true, allowNull: false, { validate: { isEmail: true } }`
+* `sequelize model:create --name User --attributes email:[type:string, unique:true, allowNull: false, { validate: { isEmail: true } }`
 * `sequelize db:migrate`
 * `sequelize-cli seed:generate --name users`
 * `sequelize-cli db:seed:all`

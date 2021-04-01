@@ -3,6 +3,7 @@ const router = express.Router();
 const workspacesController = require('../controllers/workspaces');
 
 router.route('/')
+  .get(workspacesController.getAllWorkspace)
   .post(workspacesController.createWorkspace)
 
 router.use('/:id', workspacesController.getWorkspaceById)

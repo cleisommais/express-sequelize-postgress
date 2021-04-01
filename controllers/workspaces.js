@@ -1,5 +1,17 @@
-const { workspaces } = require('../models');
+const { Workspace } = require('../models');
 
+const getAllWorkspace = async (request, response, next) => { //Retrieve all workspaces
+    try {
+        let workspaceList = await Workspace.findAll();
+        response.status(200).send(workspaceList);
+    } catch (error) {
+        console.log(error)
+        response.status(500).json({
+            message: error.message,
+        });
+        next(error);
+    }
+}
 
 const createWorkspace = async (request, response, next) => { //create a new workspaces
     try {
@@ -8,7 +20,7 @@ const createWorkspace = async (request, response, next) => { //create a new work
                 message: "Request body required",
             });
         } else {
-            let workspacesRetrieved = await workspaces.create(request.body);
+            let workspacesRetrieved = await Workspace.create(request.body);
             response.status(201).send(workspacesRetrieved);
         }
     } catch (error) {
@@ -23,7 +35,7 @@ const createWorkspace = async (request, response, next) => { //create a new work
 const getWorkspaceById = async (request, response, next) => { //Retrieve one workspaces by id
     try {
         const id = request.params.id
-        let workspacesRetrieved = await workspaces.findByPk(id);
+        let workspacesRetrieved = await Workspace.findByPk(id);
         if (workspacesRetrieved == null) {
             response.status(404).json({
                 message: `Workspace id ${id} not found`,
@@ -46,7 +58,7 @@ const getWorkspaceById = async (request, response, next) => { //Retrieve one wor
 const updateWorkspaceById = async (request, response, next) => { //Update one workspaces by id    
     try {
         const workspacesId = request.params.id;
-        let workspacesRetrieved = await workspaces.update(request.body, { where: { id: workspacesId } })
+        let workspacesRetrieved = await Workspace.update(request.body, { where: { id: workspacesId } })
         if (workspacesRetrieved == 1) {
             response.status(202).json({
                 message: 'Workspace updated',
@@ -68,7 +80,7 @@ const updateWorkspaceById = async (request, response, next) => { //Update one wo
 const deleteWorspaceById = async (request, response, next) => { //Delete one workspaces by id    
     try {
         const workspacesId = request.params.id;
-        let workspacesRetrieved = await workspaces.destroy({ where: { id: workspacesId } })
+        let workspacesRetrieved = await Workspace.destroy({ where: { id: workspacesId } })
         if (workspacesRetrieved == 1) {
             response.status(204).send();
         } else {
@@ -85,4 +97,4 @@ const deleteWorspaceById = async (request, response, next) => { //Delete one wor
     }
 }
 
-export { createWorkspace, getWorkspaceById, updateWorkspaceById, deleteWorspaceById }
+export { getAllWorkspace, createWorkspace, getWorkspaceById, updateWorkspaceById, deleteWorspaceById }

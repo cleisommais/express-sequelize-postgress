@@ -9,7 +9,7 @@ describe('User API', () => {
         expect(res.body).toEqual(
             expect.arrayContaining([
                 expect.objectContaining({
-                    email: 'test@com.x'
+                    email: 'john@gmail.com'
                 })
             ])
         )
@@ -17,31 +17,35 @@ describe('User API', () => {
     it('should show a user', async () => {
         const res = await request(app).get('/users/1')
         expect(res.statusCode).toEqual(200)
-        expect(res.body).toHaveProperty('email', 'test@com.x')
+        expect(res.body).toHaveProperty('email', 'john@gmail.com')
     }),
     it('should create a new user', async () => {
         const res = await request(app)
             .post('/users')
             .send({
+                first_name: 'Bob',
+                last_name: 'Doe',                
                 email: 'bob@doe.com',
-                password: '12345678'
+                password: '123abcd'             
             })
         expect(res.statusCode).toEqual(201)
         expect(res.body).toHaveProperty('email', 'bob@doe.com')
     }),
     it('should update a user', async () => {
         const res = await request(app)
-            .put('/users/4')
+            .put('/users/2')
             .send({
-                email: 'bob@doe.com',
-                password: 'abc123'
+                first_name: 'Ze',
+                last_name: 'Doe',                   
+                email: 'ze@doe.com',
+                password: '123abcd'
             })
         expect(res.statusCode).toEqual(202)
         expect(res.body).toHaveProperty('message', 'User updated')
     }),
     it('should delete a user', async () => {
         const res = await request(app)
-            .del('/users/4')
+            .del('/users/2')
         expect(res.statusCode).toEqual(204)
     })
 })

@@ -1,7 +1,8 @@
 'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('workspaces', {
+    await queryInterface.createTable('Workspaces', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,22 +10,41 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: 'compositeIndex', 
+        validate: {
+          min: 4,
+          max: 70,
+        }
       },
       access: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        max: 1,
+        min: 1,
       },
-      createdAt: {
+      user_id: {
+        type: Sequelize.INTEGER,
+        unique: 'compositeIndex',   
+        onDelete: 'CASCADE',   
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
+      },
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
+    await queryInterface.addIndex('Workspaces', ['name', 'user_id']);
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('workspaces');
+    await queryInterface.dropTable('Workspaces');
   }
 };
