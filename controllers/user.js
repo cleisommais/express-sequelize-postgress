@@ -1,4 +1,5 @@
-const { User } = require('../models');
+import model from '../models';
+const { User } = model;
 
 const getAllUsers = async (request, response, next) => { //Retrieve all users
     try {

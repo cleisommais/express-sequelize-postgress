@@ -1,48 +1,48 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-const User = require('./user');
-module.exports = (sequelize, DataTypes, Deferrable) => {
+import { Model } from "sequelize";
+
+export default (sequelize, DataTypes) => {
   class Workspace extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      this.belongsTo(models.User);
     }
-  };
-  Workspace.init({
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: 'compositeIndex',
-      validate: {
-        min: 2,
-        max: 70,
-      }
+  }
+  Workspace.init(
+    {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: "WorkspaceUnique",
+        validate: {
+          min: 2,
+          max: 70,
+        },
+      },
+      access: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        max: 1,
+        min: 1,
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        unique: "WorkspaceUnique",
+        allowNull: true,
+        onDelete: "CASCADE",
+        references: {
+          model: "Users",
+          key: "id",
+        },
+      },
     },
-    access: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      max: 1,
-      min: 1,
-    },
-    user_id: {
-      type: DataTypes.INTEGER,  
-      unique: 'compositeIndex',   
-      references: {
-        model: User,
-        key: 'id'
-      }
-    }    
-  }, {
-    sequelize,
-    modelName: 'Workspace',
-    tableName: 'Workspaces',
-    underscored: true
-  });
+    {
+      sequelize,
+      modelName: "Workspace",
+      tableName: "Workspaces",
+      underscored: true,
+    }
+  );
+  (async () => {
+    await Workspace.sync({ forse: true });
+  })();
   return Workspace;
 };
