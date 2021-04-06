@@ -96,13 +96,41 @@ export default {
                 },                                
             ],
             {}
-        );        
+        );  
+        await queryInterface.bulkInsert(
+            "Lists",
+            [
+                {
+                    name: "Todo",
+                    order: 0,
+                    board_id: 1,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },
+                {
+                    name: "Doing",
+                    order: 1,
+                    board_id: 1,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },   
+                {
+                    name: "Done",
+                    order: 2,
+                    board_id: 1,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                             
+            ],
+            {}
+        );               
     },
 
     down: async (queryInterface, Sequelize) => {
         await queryInterface.bulkDelete("Users", null, {});
         await queryInterface.bulkDelete("Workspaces", null, {});
         await queryInterface.bulkDelete("Boards", null, {});
+        await queryInterface.bulkDelete("Lists", null, {});
     },
 };
 
