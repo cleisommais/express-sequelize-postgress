@@ -7,6 +7,7 @@ import workspaceRouter from "./routes/workspace";
 import subscriptionRouter from "./routes/subscription";
 import boardRouter from "./routes/board";
 import listRouter from "./routes/list";
+import cardRouter from "./routes/card";
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.use("/workspaces", workspaceRouter);
 app.use("/subscriptions", subscriptionRouter);
 app.use("/boards", boardRouter);
 app.use("/lists", listRouter);
+app.use("/cards", cardRouter);
 
 export default app;

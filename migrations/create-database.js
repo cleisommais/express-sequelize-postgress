@@ -229,6 +229,103 @@ export default {
                 },
             }
         );
+        await queryInterface.createTable(
+            "Cards",
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER,
+                },
+                name: {
+                    type: Sequelize.STRING,
+                    unique: "nameList",
+                    allowNull: false,
+                },
+                type: {
+                    type: Sequelize.INTEGER,
+                    allowNull: false,
+                },
+                description: {
+                    type: Sequelize.TEXT,
+                    allowNull: false,
+                },                
+                list_id: {
+                    type: Sequelize.INTEGER,
+                    unique: "nameList",
+                    allowNull: false,
+                    onDelete: "CASCADE",
+                    references: {
+                        model: "Lists",
+                        key: "id",
+                    },
+                },
+                created_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+                updated_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+            },
+            {
+                uniqueKeys: {
+                    unique_tag: {
+                        customIndex: true,
+                        fields: ["name", "list_id"],
+                    },
+                },
+            }
+        );   
+        await queryInterface.createTable(
+            "UsersCards",
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER,
+                },  
+                card_id: {
+                    type: Sequelize.INTEGER,
+                    unique: "UserCardUnique",
+                    allowNull: false,
+                    onDelete: "CASCADE",
+                    references: {
+                        model: "Cards",
+                        key: "id",
+                    },
+                },                             
+                user_id: {
+                    type: Sequelize.INTEGER,
+                    unique: "UserCardUnique",
+                    allowNull: false,
+                    onDelete: "CASCADE",
+                    references: {
+                        model: "Users",
+                        key: "id",
+                    },
+                },
+                created_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+                updated_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+            },
+            {
+                uniqueKeys: {
+                    unique_tag: {
+                        customIndex: true,
+                        fields: ["card_id", "user_id"],
+                    },
+                },
+            }
+        );              
     },
     down: async (queryInterface, Sequelize) => {
         await queryInterface.dropTable("Users");
@@ -236,5 +333,7 @@ export default {
         await queryInterface.dropTable("Subscriptions");
         await queryInterface.dropTable("Boards");
         await queryInterface.dropTable("Lists");
+        await queryInterface.dropTable("Cards");
+        await queryInterface.dropTable("UsersCards");
     },
 };

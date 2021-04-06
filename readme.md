@@ -8,19 +8,13 @@
 
 ---
 
-### Commands used to create the app
-
-* `express --git --no-view express-sequelize-postgress`
-* `npm install`
-* `npm i -D nodemon`
-* `npm install --save sequelize`
-* `npm install --save pg pg-hstore`
-* `sequelize init`
-* `sequelize model:create --name users --attributes email:string,password:string`
-* `sequelize model:create --name User --attributes email:[type:string, unique:true, allowNull: false, { validate: { isEmail: true } }`
-* `sequelize db:migrate`
-* `sequelize-cli seed:generate --name users`
-* `sequelize-cli db:seed:all`
+### Important comandas load the first data to database
+* Create database specified by conf `sequelize db:create`
+* Drop database specified by conf `sequelize db:drop`
+* Add tables, indexes and constraints `sequelize db:migrate`
+* Remove all tables and its dependencies `sequelize db:migrate:undo:all`
+* Insert the data to database `sequelize-cli db:seed:all`
+* Remove all data that you imported/inserted bevore `sequelize-cli db:seed:undo:all`
 
 ---
 

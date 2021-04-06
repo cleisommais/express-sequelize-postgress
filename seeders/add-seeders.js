@@ -123,7 +123,53 @@ export default {
                 },                             
             ],
             {}
-        );               
+        );   
+        await queryInterface.bulkInsert(
+            "Cards",
+            [
+                {
+                    name: "Create the architecture",
+                    type: 1,
+                    description: "Design and define the architecure of the course",
+                    list_id: 1,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },  
+                {
+                    name: "Create account AWS",
+                    type: 1,
+                    description: "Create a new free tier accout at AWS to be used on the course",
+                    list_id: 3,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                                           
+            ],
+            {}
+        );   
+        await queryInterface.bulkInsert(
+            "UsersCards",
+            [
+                {
+                    card_id: 1,
+                    user_id: 3,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                }, 
+                {
+                    card_id: 1,
+                    user_id: 4,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                 
+                {
+                    card_id: 2,
+                    user_id: 3,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                                           
+            ],
+            {}
+        );                          
     },
 
     down: async (queryInterface, Sequelize) => {
@@ -131,6 +177,8 @@ export default {
         await queryInterface.bulkDelete("Workspaces", null, {});
         await queryInterface.bulkDelete("Boards", null, {});
         await queryInterface.bulkDelete("Lists", null, {});
+        await queryInterface.bulkDelete("Cards", null, {});
+        await queryInterface.bulkDelete("UsersCards", null, {});
     },
 };
 
