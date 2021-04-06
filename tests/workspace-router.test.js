@@ -1,7 +1,7 @@
 import "regenerator-runtime/runtime";
 import request from "supertest";
 const app = require("../app").default;
-
+let id = "";
 describe("workspaces API", () => {
   it("should show all workspaces", async () => {
     const res = await request(app).get("/workspaces");
@@ -25,11 +25,12 @@ describe("workspaces API", () => {
         access: 1,
         userId: 1,
       });
+      id = res.body.id;
       expect(res.statusCode).toEqual(201);
       expect(res.body).toHaveProperty("name", "Isaac Workspace");
     }),
     it("should update a workspaces", async () => {
-      const res = await request(app).put("/workspaces/1").send({
+      const res = await request(app).put("/workspaces/" + id).send({
         name: "Isabella Workspace",
         access: 3,
       });
@@ -37,7 +38,7 @@ describe("workspaces API", () => {
       expect(res.body).toHaveProperty("message", "Workspace updated");
     }),
     it("should delete a workspaces", async () => {
-      const res = await request(app).del("/workspaces/1");
+      const res = await request(app).del("/workspaces/" + id);
       expect(res.statusCode).toEqual(204);
     });
 });
