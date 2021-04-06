@@ -6,6 +6,7 @@ import userRouter from "./routes/user";
 import workspaceRouter from "./routes/workspace";
 import subscriptionRouter from "./routes/subscription";
 import boardRouter from "./routes/board";
+import listRouter from "./routes/list";
 
 const app = express();
 
@@ -18,5 +19,6 @@ app.use("/users", userRouter);
 app.use("/workspaces", workspaceRouter);
 app.use("/subscriptions", subscriptionRouter);
 app.use("/boards", boardRouter);
+app.use("/lists", listRouter);
 
 export default app;
