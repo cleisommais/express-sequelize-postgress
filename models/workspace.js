@@ -4,6 +4,7 @@ export default (sequelize, DataTypes) => {
   class Workspace extends Model {
     static associate(models) {
       this.belongsTo(models.User);
+      this.hasMany(models.Board);
     }
   }
   Workspace.init(

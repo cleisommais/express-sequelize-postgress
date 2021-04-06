@@ -137,10 +137,57 @@ export default {
                 type: Sequelize.DATE,
             },
         });
+        await queryInterface.createTable(
+            "Boards",
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER,
+                },                
+                name: {
+                    type: Sequelize.STRING,
+                    unique: "uniqueWorkspace",
+                    allowNull: false,
+                },  
+                access: {
+                    type: Sequelize.INTEGER,
+                    allowNull: false,
+                },                                
+                workspace_id: {
+                    type: Sequelize.INTEGER,
+                    unique: "uniqueWorkspace",
+                    allowNull: false,
+                    onDelete: "CASCADE",
+                    references: {
+                        model: "Workspaces",
+                        key: "id",
+                    },
+                },
+                created_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+                updated_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+            },
+            {
+                uniqueKeys: {
+                    unique_tag: {
+                        customIndex: true,
+                        fields: ["name", "workspace_id"],
+                    },
+                },
+            }
+        );
     },
     down: async (queryInterface, Sequelize) => {
         await queryInterface.dropTable("Users");
         await queryInterface.dropTable("Workspaces");
         await queryInterface.dropTable("Subscriptions");
+        await queryInterface.dropTable("Boards");
     },
 };

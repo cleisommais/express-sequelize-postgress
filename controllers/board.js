@@ -1,14 +1,14 @@
 import { ValidationError } from "sequelize";
 import model from "../models";
-const { Subscription } = model;
+const { Board } = model;
 
-const getAllSubscriptions = async (request, response, next) => {
-    //Retrieve all subscriptions
+const getAllBoards = async (request, response, next) => {
+    //Retrieve all boards
     try {
-        let subscriptionList = await Subscription.findAll();
-        response.status(200).send(subscriptionList);
+        let boardList = await Board.findAll();
+        response.status(200).send(boardList);
     } catch (error) {
-        let message = processValidationError(error);
+        const message = processValidationError(error);
         if (error instanceof ValidationError) {
             response.status(400).json({
                 message: message,
@@ -16,26 +16,26 @@ const getAllSubscriptions = async (request, response, next) => {
         } else {
             console.log(error);
             response.status(500).json({
-                message: error,
+                message: error.message,
             });
         }
         next(error);
     }
 };
 
-const createSubscription = async (request, response, next) => {
-    //create a new subscription
+const createBoard = async (request, response, next) => {
+    //create a new board
     try {
         if (request.body === "" || request.body == null) {
             response.status(400).json({
                 message: "Request body required",
             });
         } else {
-            let subscription = await Subscription.create(request.body);
-            response.status(201).send(subscription);
+            let board = await Board.create(request.body);
+            response.status(201).send(board);
         }
     } catch (error) {
-        let message = processValidationError(error);
+        const message = processValidationError(error);
         if (error instanceof ValidationError) {
             response.status(400).json({
                 message: message,
@@ -43,30 +43,30 @@ const createSubscription = async (request, response, next) => {
         } else {
             console.log(error);
             response.status(500).json({
-                message: error,
+                message: error.message,
             });
         }
         next(error);
     }
 };
 
-const getSubscriptionById = async (request, response, next) => {
-    //Retrieve one subscription by id
+const getBoardById = async (request, response, next) => {
+    //Retrieve one board by id
     try {
         const id = request.params.id;
-        let subscription = await Subscription.findByPk(id);
-        if (subscription == null) {
+        let board = await Board.findByPk(id);
+        if (board == null) {
             response.status(404).json({
-                message: `Subscription id ${id} not found`,
+                message: `Board id ${id} not found`,
             });
-            console.log(`Subscription id ${id} not found`);
-            next(`Subscription id ${id} not found`);
+            console.log(`Board id ${id} not found`);
+            next(`Board id ${id} not found`);
         } else {
-            request.subscription = subscription;
+            request.board = board;
             next();
         }
     } catch (error) {
-        let message = processValidationError(error);
+        const message = processValidationError(error);
         if (error instanceof ValidationError) {
             response.status(400).json({
                 message: message,
@@ -74,31 +74,31 @@ const getSubscriptionById = async (request, response, next) => {
         } else {
             console.log(error);
             response.status(500).json({
-                message: error,
+                message: error.message,
             });
         }
         next(error);
     }
 };
 
-const updateSubscriptionById = async (request, response, next) => {
-    //Update one subscription by id
+const updateBoardById = async (request, response, next) => {
+    //Update one board by id
     try {
-        const subscriptionId = request.params.id;
-        let subscription = await Subscription.update(request.body, {
-            where: { id: subscriptionId },
+        const boardId = request.params.id;
+        let board = await Board.update(request.body, {
+            where: { id: boardId },
         });
-        if (subscription == 1) {
+        if (board == 1) {
             response.status(202).json({
-                message: "Subscription updated",
+                message: "Board updated",
             });
         } else {
             response.status(400).json({
-                message: "Subscription NOT updated",
+                message: "Board NOT updated",
             });
         }
     } catch (error) {
-        let message = processValidationError(error);
+        const message = processValidationError(error);
         if (error instanceof ValidationError) {
             response.status(400).json({
                 message: message,
@@ -106,29 +106,27 @@ const updateSubscriptionById = async (request, response, next) => {
         } else {
             console.log(error);
             response.status(500).json({
-                message: error,
+                message: error.message,
             });
         }
         next(error);
     }
 };
 
-const deleteSubscriptionById = async (request, response, next) => {
-    //Delete one subscription by id
+const deleteBoardById = async (request, response, next) => {
+    //Delete one board by id
     try {
-        const subscriptionId = request.params.id;
-        let subscription = await Subscription.destroy({
-            where: { id: subscriptionId },
-        });
-        if (subscription == 1) {
+        const boardId = request.params.id;
+        let board = await Board.destroy({ where: { id: boardId } });
+        if (board == 1) {
             response.status(204).send();
         } else {
             response.status(400).json({
-                message: "Subscription NOT deleted",
+                message: "Board NOT deleted",
             });
         }
     } catch (error) {
-        let message = processValidationError(error);
+        const message = processValidationError(error);
         if (error instanceof ValidationError) {
             response.status(400).json({
                 message: message,
@@ -136,7 +134,7 @@ const deleteSubscriptionById = async (request, response, next) => {
         } else {
             console.log(error);
             response.status(500).json({
-                message: error,
+                message: error.message,
             });
         }
         next(error);
@@ -162,9 +160,9 @@ function processValidationError(error) {
 }
 
 export {
-    getAllSubscriptions,
-    createSubscription,
-    getSubscriptionById,
-    updateSubscriptionById,
-    deleteSubscriptionById,
+    getAllBoards,
+    createBoard,
+    getBoardById,
+    updateBoardById,
+    deleteBoardById,
 };
