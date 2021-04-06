@@ -31,9 +31,9 @@ const createCard = async (request, response, next) => {
                 message: "Request body required",
             });
         } else {
-            let card = await Card.create(request.body,{
+            let card = await Card.create(request.body, {
                 include: [{ model: User, required: false }],
-              });
+            });
             response.status(201).send(card);
         }
     } catch (error) {
@@ -158,14 +158,7 @@ function processValidationError(error) {
             }
         });
     }
-    console.log("Error response: " + errorResponseConcat);
     return errorResponseConcat;
 }
 
-export {
-    getAllCards,
-    createCard,
-    getCardById,
-    updateCardById,
-    deleteCardById,
-};
+export { getAllCards, createCard, getCardById, updateCardById, deleteCardById };

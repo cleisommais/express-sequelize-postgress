@@ -1,11 +1,10 @@
 import { Model } from "sequelize";
-import usercard from "./usercard";
 
 export default (sequelize, DataTypes) => {
     class Card extends Model {
         static associate(models) {
-            this.belongsToMany(models.User, { through: models.UserCard });
             this.belongsTo(models.List);
+            this.belongsToMany(models.User, { through: models.UserCard });
         }
     }
     Card.init(
@@ -32,7 +31,7 @@ export default (sequelize, DataTypes) => {
                 allowNull: false,
                 onDelete: "CASCADE",
                 references: {
-                    model: "Lists",
+                    model: 'Lists',
                     key: "id",
                 },
             },
@@ -45,7 +44,7 @@ export default (sequelize, DataTypes) => {
         }
     );
     (async () => {
-        await Card.sync({ force: true });
+        await Card.sync({ alter: true });
     })();
     return Card;
 };

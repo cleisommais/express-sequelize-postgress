@@ -2,7 +2,8 @@ import { Model } from "sequelize";
 
 export default (sequelize, DataTypes) => {
     class UserCard extends Model {
-        static associate(models) {            
+        static associate(models) {
+           
         }
     }
     UserCard.init(
