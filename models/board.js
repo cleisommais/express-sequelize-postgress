@@ -3,23 +3,24 @@ import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
     class Board extends Model {
         static associate(models) {
-            this.belongsTo(models.Workspace)
+            this.belongsTo(models.Workspace);
+            this.hasMany(models.List);
         }
     }
     Board.init(
         {
             name: {
                 type: DataTypes.STRING,
-                unique: 'nameCardBoard',
+                unique: "nameCardBoard",
                 allowNull: false,
-            },	
+            },
             access: {
                 type: DataTypes.INTEGER,
-				allowNull: false,
-            },				
+                allowNull: false,
+            },
             workspaceId: {
                 type: DataTypes.INTEGER,
-				unique: 'nameCardBoard',
+                unique: "nameCardBoard",
                 allowNull: false,
                 onDelete: "CASCADE",
                 references: {
