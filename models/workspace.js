@@ -12,10 +12,6 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: "WorkspaceUnique",
-        validate: {
-          min: 2,
-          max: 70,
-        },
       },
       access: {
         type: DataTypes.INTEGER,
@@ -42,7 +38,7 @@ export default (sequelize, DataTypes) => {
     }
   );
   (async () => {
-    await Workspace.sync({ forse: true });
+    await Workspace.sync({ alter: true });
   })();
   return Workspace;
 };

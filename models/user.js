@@ -5,39 +5,24 @@ export default (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       this.hasOne(models.Workspace, { onDelete: "CASCATE" });
+      this.hasOne(models.Subscription, { onDelete: "CASCATE" });
     }
   }
   User.init(
     {
-      first_name: {
+      firstName: {
         type: DataTypes.STRING,
-        allowNull: {
-          args: false,
-          msg: "Please enter your first name",
-        },
-        validate: {
-          min: 2,
-          max: 30,
-        },
+        allowNull: false,
       },
-      last_name: {
+      lastName: {
         type: DataTypes.STRING,
         allowNull: true,
-        validate: {
-          min: 0,
-          max: 60,
-        },
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: {
-          args: false,
-          msg: "Please enter your email address",
-        },
+        allowNull: false,
         validate: {
           isEmail: true,
-          min: 4,
-          max: 70,
         },
         unique: {
           args: true,
@@ -46,10 +31,7 @@ export default (sequelize, DataTypes) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: {
-          args: false,
-          msg: "Please enter your password",
-        },
+        allowNull: false,
         set(value) {
           const hash = hashPassword(value);
           this.setDataValue("password", hash);

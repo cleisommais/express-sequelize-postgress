@@ -41,7 +41,6 @@ const getUserById = async (request, response, next) => { //Retrieve one user by 
             response.status(404).json({
                 message: `User id ${id} not found`,
             });
-            console.log(`User id ${id} not found`)
             next(`User id ${id} not found`)
         } else {
             request.user = user;
@@ -60,7 +59,6 @@ const updateUserById = async (request, response, next) => { //Update one user by
     try {
         const userId = request.params.id;
         let user = await User.update(request.body, { where: { id: userId } })
-        console.log(user)
         if (user == 1) {
             response.status(202).json({
                 message: 'User updated',
@@ -83,7 +81,6 @@ const deleteUserById = async (request, response, next) => { //Delete one user by
     try {
         const userId = request.params.id;
         let user = await User.destroy({ where: { id: userId } })
-        console.log(user)
         if (user == 1) {
             response.status(204).send();
         } else {

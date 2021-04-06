@@ -48,7 +48,6 @@ const getWorkspaceById = async (request, response, next) => {
       response.status(404).json({
         message: `Workspace id ${id} not found`,
       });
-      console.log(`Workspace id ${id} not found`);
       next(`Workspace id ${id} not found`);
     } else {
       request.workspaces = workspacesRetrieved;
