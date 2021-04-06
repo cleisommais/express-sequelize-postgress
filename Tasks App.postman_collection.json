@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5d17e0a0-037d-4e55-876d-3127b306dff5",
+		"_postman_id": "049196e2-14cf-4e84-928a-a327a8e36650",
 		"name": "Tasks App",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -31,7 +31,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"first_name\": \"Cristina\",\r\n    \"last_name\": \"Melo\",\r\n    \"email\": \"cristina@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"firstName\": \"Cristina\",\r\n    \"lastName\": \"Melo\",\r\n    \"email\": \"cristina@gmail.com\",\r\n    \"password\": \"123456\" \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -429,7 +429,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"type\": 1,\r\n    \"price\": 99.00,\r\n    \"cardNumber\": 4020241042903300,\r\n    \"cardExpirationMonth\": 8,\r\n    \"cardExpirationYear\": 2034,\r\n    \"securityCode\": 480,\r\n    \"userId\": 1\r\n}",
+							"raw": "{\r\n    \"type\": 1,\r\n    \"price\": 99.00,\r\n    \"cardNumber\": 4020241042903300,\r\n    \"cardExpirationMonth\": 8,\r\n    \"cardExpirationYear\": 2034,\r\n    \"securityCode\": 480,\r\n    \"userId\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1225,7 +1225,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Create XPTO account\",\r\n    \"type\": 1,\r\n    \"description\": \"Create Docker account\",\r\n    \"boardId\": 1,\r\n    \"listId\": 2,\r\n    \"User\": {\r\n        \"first_name\": \"Cristina\",\r\n        \"last_name\": \"Melo\",\r\n        \"email\": \"cristina2@gmail.com\",\r\n        \"password\": \"123456\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"name\": \"Create XPTO account\",\r\n    \"type\": 1,\r\n    \"description\": \"Create Docker account\",\r\n    \"boardId\": 1,\r\n    \"listId\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1271,7 +1271,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\": 2,\r\n    \"cardId\": 2\r\n}",
+							"raw": "[\r\n    {\r\n        \"id\": 4\r\n    },\r\n    {\r\n        \"id\": 5\r\n    }    \r\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1279,7 +1279,7 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:3000/cards/2/users",
+							"raw": "127.0.0.1:3000/cards/1/users",
 							"host": [
 								"127",
 								"0",
@@ -1289,7 +1289,7 @@
 							"port": "3000",
 							"path": [
 								"cards",
-								"2",
+								"1",
 								"users"
 							]
 						}
@@ -1349,7 +1349,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:3000/cards/{{cardId}}",
+							"raw": "127.0.0.1:3000/cards/1",
 							"host": [
 								"127",
 								"0",
@@ -1359,7 +1359,7 @@
 							"port": "3000",
 							"path": [
 								"cards",
-								"{{cardId}}"
+								"1"
 							]
 						}
 					},
@@ -1465,6 +1465,26 @@
 					}
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"variable": [

@@ -1,6 +1,7 @@
+import { async } from "regenerator-runtime";
 import { ValidationError } from "sequelize";
 import model from "../models";
-const { Card, User } = model;
+const { Card, User, UserCard } = model;
 
 const getAllCards = async (request, response, next) => {
     //Retrieve all cards
@@ -144,6 +145,58 @@ const deleteCardById = async (request, response, next) => {
     }
 };
 
+const addUsersToCard = async (request, response, next) => {
+    try {
+        if (request.body === "" || request.body == null) {
+            response.status(400).json({
+                message: "Request body required",
+            });
+        } else {
+            const cardId = request.params.id;
+            const userIdArray = request.body;
+            userIdArray.forEach(async (element) => {
+                let card = await Card.findByPk(cardId,{
+                    include: [{ model: User, required: false }],
+                });
+                let user = await User.findByPk(element.id,{
+                    include: [{ model: Card, required: false }],
+                });
+                console.log(card);
+                card.setUsers(user);
+                await card.update();
+            });
+            response.status(501).json({
+                message: "Not implemented",
+            });
+        }
+    } catch (error) {
+        const message = processValidationError(error);
+        if (error instanceof ValidationError) {
+            response.status(400).json({
+                message: message,
+            });
+        } else {
+            console.log(error);
+            response.status(500).json({
+                message: error.message,
+            });
+        }
+        next(error);
+    }
+};
+
+const removeUsersFromCard = async (request, response, next) => {
+    response.status(501).json({
+        message: "Not implemented",
+    });
+};
+
+const listAllUsersFromCard = async (request, response, next) => {
+    response.status(501).json({
+        message: "Not implemented",
+    });
+};
+
 function processValidationError(error) {
     let errorResponseConcat = "";
     if (error instanceof ValidationError) {
@@ -161,4 +214,13 @@ function processValidationError(error) {
     return errorResponseConcat;
 }
 
-export { getAllCards, createCard, getCardById, updateCardById, deleteCardById };
+export {
+    getAllCards,
+    createCard,
+    getCardById,
+    updateCardById,
+    deleteCardById,
+    addUsersToCard,
+    removeUsersFromCard,
+    listAllUsersFromCard,
+};
