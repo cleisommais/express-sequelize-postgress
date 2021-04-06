@@ -88,7 +88,6 @@ const updateSubscriptionById = async (request, response, next) => {
         let subscription = await Subscription.update(request.body, {
             where: { id: subscriptionId },
         });
-        console.log(subscription);
         if (subscription == 1) {
             response.status(202).json({
                 message: "Subscription updated",
@@ -121,7 +120,6 @@ const deleteSubscriptionById = async (request, response, next) => {
         let subscription = await Subscription.destroy({
             where: { id: subscriptionId },
         });
-        console.log(subscription);
         if (subscription == 1) {
             response.status(204).send();
         } else {

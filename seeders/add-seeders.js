@@ -77,11 +77,32 @@ export default {
             ],
             {}
         );
+        await queryInterface.bulkInsert(
+            "Boards",
+            [
+                {
+                    name: "Apigee Udemy course",
+                    access: 1,
+                    workspace_id: 1,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },
+                {
+                    name: "Express + Sequelize + Postgres Udemy course",
+                    access: 1,
+                    workspace_id: 1,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                                
+            ],
+            {}
+        );        
     },
 
     down: async (queryInterface, Sequelize) => {
         await queryInterface.bulkDelete("Users", null, {});
         await queryInterface.bulkDelete("Workspaces", null, {});
+        await queryInterface.bulkDelete("Boards", null, {});
     },
 };
 
