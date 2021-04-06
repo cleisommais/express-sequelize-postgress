@@ -6,6 +6,7 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       this.hasOne(models.Workspace, { onDelete: "CASCATE" });
       this.hasOne(models.Subscription, { onDelete: "CASCATE" });
+      this.belongsToMany(models.Card, { through: models.UserCard });
     }
   }
   User.init(

@@ -4,6 +4,7 @@ export default (sequelize, DataTypes) => {
     class List extends Model {
         static associate(models) {
             this.belongsTo(models.Board);
+            this.hasMany(models.Card, { onDelete: "CASCATE" });
         }
     }
     List.init(
