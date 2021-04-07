@@ -3,8 +3,8 @@ import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
     class List extends Model {
         static associate(models) {
-            this.belongsTo(models.Board);
-            this.hasMany(models.Card, { onDelete: "CASCATE" });
+            this.belongsTo(models.Board, { foreignKey: "boardId" });
+            this.hasMany(models.Card, { foreignKey: "listId" });
         }
     }
     List.init(
@@ -23,16 +23,11 @@ export default (sequelize, DataTypes) => {
                     args: false,
                     msg: "Please enter order",
                 },
-            },			
+            },
             boardId: {
                 type: DataTypes.INTEGER,
-                allowNull: true,
                 unique: "ListUnique",
-                onDelete: "CASCADE",
-                references: {
-                    model: "Boards",
-                    key: "id",
-                },
+                allowNull: false,
             },
         },
         {
@@ -42,8 +37,5 @@ export default (sequelize, DataTypes) => {
             underscored: true,
         }
     );
-    (async () => {
-        await List.sync({ alter: true });
-    })();
     return List;
 };

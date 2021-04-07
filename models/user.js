@@ -4,9 +4,9 @@ import crypto from "crypto";
 export default (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      this.hasOne(models.Workspace, { onDelete: "CASCATE" });
-      this.hasOne(models.Subscription, { onDelete: "CASCATE" });
-      this.belongsToMany(models.Card, { through: models.UserCard });
+      this.hasOne(models.Workspace, { foreignKey: "userId" });
+      this.hasOne(models.Subscription, { foreignKey: "userId" });
+      this.belongsToMany(models.Card, { through: models.UserCard, foreignKey: "userId" });
     }
   }
   User.init(
@@ -48,10 +48,7 @@ export default (sequelize, DataTypes) => {
       tableName: "Users",
       underscored: true,
     }
-  );
-  (async () => {
-    await User.sync({ alter: true });
-  })();   
+  );  
   return User;
 };
 

@@ -3,8 +3,11 @@ import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
     class Card extends Model {
         static associate(models) {
-            this.belongsTo(models.List);
-            this.belongsToMany(models.User, { through: models.UserCard });
+            this.belongsTo(models.List, { foreignKey: "listId" });
+            this.belongsToMany(models.User, {
+                through: models.UserCard,
+                foreignKey: "cardId",
+            });
         }
     }
     Card.init(
@@ -29,11 +32,6 @@ export default (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 unique: "nameList",
                 allowNull: false,
-                onDelete: "CASCADE",
-                references: {
-                    model: 'Lists',
-                    key: "id",
-                },
             },
         },
         {
@@ -43,8 +41,5 @@ export default (sequelize, DataTypes) => {
             underscored: true,
         }
     );
-    (async () => {
-        await Card.sync({ alter: true });
-    })();
     return Card;
 };
