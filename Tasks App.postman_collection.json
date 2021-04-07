@@ -31,7 +31,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Cristina\",\r\n    \"lastName\": \"Melo\",\r\n    \"email\": \"cristina@gmail.com\",\r\n    \"password\": \"123456\" \r\n}",
+							"raw": "{\r\n    \"firstName\": \"Test\",\r\n    \"lastName\": \"Melo\",\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"Cards\": [\r\n        {\r\n            \"id\": 3,\r\n            \"name\": \"Create XPTO account\",\r\n            \"type\": 1,\r\n            \"description\": \"Create Docker account\",\r\n            \"listId\": 2\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -143,7 +143,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"password\": \"11112222\"\r\n}",
+							"raw": "{\r\n    \"password\": \"11112222\",\r\n    \"Cards\": [\r\n        {\r\n            \"id\": 4,\r\n            \"firstName\": \"Isabella\",\r\n            \"lastName\": \"Melo\",\r\n            \"email\": \"isabella@gmail.com\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -429,7 +429,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"type\": 1,\r\n    \"price\": 99.00,\r\n    \"cardNumber\": 4020241042903300,\r\n    \"cardExpirationMonth\": 8,\r\n    \"cardExpirationYear\": 2034,\r\n    \"securityCode\": 480,\r\n    \"userId\": 2\r\n}",
+							"raw": "{\r\n    \"type\": 1,\r\n    \"price\": 99.00,\r\n    \"cardNumber\": 4020241042903300,\r\n    \"cardExpirationMonth\": 8,\r\n    \"cardExpirationYear\": 2034,\r\n    \"securityCode\": 480,\r\n    \"userId\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1249,54 +1249,6 @@
 					"response": []
 				},
 				{
-					"name": "Add Users to Card",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.collectionVariables.set(\"cardId\", jsonData.id);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"id\": 4\r\n    },\r\n    {\r\n        \"id\": 5\r\n    }    \r\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "127.0.0.1:3000/cards/1/users",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "3000",
-							"path": [
-								"cards",
-								"1",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Retrieve All",
 					"event": [
 						{
@@ -1349,7 +1301,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:3000/cards/1",
+							"raw": "127.0.0.1:3000/cards/{{cardId}}",
 							"host": [
 								"127",
 								"0",
@@ -1359,7 +1311,7 @@
 							"port": "3000",
 							"path": [
 								"cards",
-								"1"
+								"{{cardId}}"
 							]
 						}
 					},
@@ -1443,6 +1395,147 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Add Users to Card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"userId\": 1\r\n    },\r\n    {\r\n        \"userId\": 2\r\n    },\r\n    {\r\n        \"userId\": 5\r\n    },\r\n    {\r\n        \"userId\": 6\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/cards/{{cardId}}/users",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"cards",
+								"{{cardId}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users by Card Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/cards/{{cardId}}/users",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"cards",
+								"{{cardId}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Users from the Card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"userId\": 1\r\n    },\r\n    {\r\n        \"userId\": 2\r\n    }    \r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/cards/{{cardId}}/users",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"cards",
+								"{{cardId}}",
+								"users"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
@@ -1510,11 +1603,11 @@
 		},
 		{
 			"key": "listId",
-			"value": 7
+			"value": "2"
 		},
 		{
 			"key": "cardId",
-			"value": 9
+			"value": "2"
 		}
 	]
 }
