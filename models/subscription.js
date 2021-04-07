@@ -3,7 +3,7 @@ import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
     class Subscription extends Model {
         static associate(models) {
-            this.belongsTo(models.User);
+            this.belongsTo(models.User, { foreignKey: "userId" });
         }
     }
     Subscription.init(
@@ -32,7 +32,7 @@ export default (sequelize, DataTypes) => {
                 validate: {
                     isNumeric: true,
                 },
-            },            
+            },
             cardExpirationYear: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
@@ -54,11 +54,6 @@ export default (sequelize, DataTypes) => {
                     args: true,
                     msg: "Only one subscription per user",
                 },
-                onDelete: "CASCADE",
-                references: {
-                    model: "Users",
-                    key: "id",
-                },
             },
         },
         {
@@ -68,8 +63,5 @@ export default (sequelize, DataTypes) => {
             underscored: true,
         }
     );
-    (async () => {
-        await Subscription.sync({ alter: true });
-    })();
     return Subscription;
 };

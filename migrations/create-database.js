@@ -250,7 +250,7 @@ export default {
                 description: {
                     type: Sequelize.TEXT,
                     allowNull: false,
-                },                
+                },
                 list_id: {
                     type: Sequelize.INTEGER,
                     unique: "nameList",
@@ -278,7 +278,7 @@ export default {
                     },
                 },
             }
-        );   
+        );
         await queryInterface.createTable(
             "UsersCards",
             {
@@ -287,7 +287,7 @@ export default {
                     autoIncrement: true,
                     primaryKey: true,
                     type: Sequelize.INTEGER,
-                },  
+                },
                 card_id: {
                     type: Sequelize.INTEGER,
                     unique: "UserCardUnique",
@@ -297,7 +297,7 @@ export default {
                         model: "Cards",
                         key: "id",
                     },
-                },                             
+                },
                 user_id: {
                     type: Sequelize.INTEGER,
                     unique: "UserCardUnique",
@@ -325,15 +325,15 @@ export default {
                     },
                 },
             }
-        );              
+        );
     },
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable("Users");
-        await queryInterface.dropTable("Workspaces");
-        await queryInterface.dropTable("Subscriptions");
-        await queryInterface.dropTable("Boards");
-        await queryInterface.dropTable("Lists");
-        await queryInterface.dropTable("Cards");
         await queryInterface.dropTable("UsersCards");
+        await queryInterface.dropTable("Cards");
+        await queryInterface.dropTable("Lists");
+        await queryInterface.dropTable("Boards");
+        await queryInterface.dropTable("Subscriptions");
+        await queryInterface.dropTable("Workspaces");
+        await queryInterface.dropTable("Users");
     },
 };

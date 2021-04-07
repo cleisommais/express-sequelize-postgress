@@ -3,8 +3,8 @@ import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
     class Board extends Model {
         static associate(models) {
-            this.belongsTo(models.Workspace);
-            this.hasMany(models.List);
+            this.belongsTo(models.Workspace, { foreignKey: "workspaceId" });
+            this.hasMany(models.List, { foreignKey: "boardId" });
         }
     }
     Board.init(
@@ -22,12 +22,7 @@ export default (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 unique: "nameCardBoard",
                 allowNull: false,
-                onDelete: "CASCADE",
-                references: {
-                    model: "Workspaces",
-                    key: "id",
-                },
-            },
+            },            
         },
         {
             sequelize,
@@ -36,8 +31,5 @@ export default (sequelize, DataTypes) => {
             underscored: true,
         }
     );
-    (async () => {
-        await Board.sync({ alter: true });
-    })();
     return Board;
 };
