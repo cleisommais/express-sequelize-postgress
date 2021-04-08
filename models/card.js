@@ -8,9 +8,13 @@ export default (sequelize, DataTypes) => {
                 through: models.UserCard,
                 foreignKey: "cardId",
             });
-            this.belongsToMany(models.Label, { through: models.LabelCard, foreignKey: "cardId" });  
+            this.belongsToMany(models.Label, {
+                through: models.LabelCard,
+                foreignKey: "cardId",
+            });
             this.hasMany(models.Checklist, { foreignKey: "cardId" });
-            this.hasMany(models.Activity, { foreignKey: "cardId" });   
+            this.hasMany(models.Activity, { foreignKey: "cardId" });
+            this.hasMany(models.Attachment, { foreignKey: "cardId" });
         }
     }
     Card.init(

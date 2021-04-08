@@ -12,6 +12,7 @@ import inviteRouter from "./routes/invite";
 import labelRouter from "./routes/label";
 import checklistRouter from "./routes/checklist";
 import activityRouter from "./routes/activity";
+import attachmentRouter from "./routes/attachment";
 
 const app = express();
 
@@ -30,5 +31,6 @@ app.use("/invites", inviteRouter);
 app.use("/labels", labelRouter);
 app.use("/checklists", checklistRouter);
 app.use("/activities", activityRouter);
+app.use("/attachments", attachmentRouter);
 
 export default app;
