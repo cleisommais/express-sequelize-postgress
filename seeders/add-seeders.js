@@ -1,6 +1,6 @@
 import "regenerator-runtime/runtime";
 import crypto from "crypto";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 export default {
     up: async (queryInterface, Sequelize) => {
@@ -22,7 +22,7 @@ export default {
                     password: hashPassword("123456"),
                     created_at: new Date(),
                     updated_at: new Date(),
-                },  
+                },
                 {
                     first_name: "Isaac",
                     last_name: "Melo",
@@ -30,7 +30,7 @@ export default {
                     password: hashPassword("123456"),
                     created_at: new Date(),
                     updated_at: new Date(),
-                },      
+                },
                 {
                     first_name: "Isabella",
                     last_name: "Melo",
@@ -54,7 +54,7 @@ export default {
                     password: hashPassword("123456"),
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                                                                         
+                },
             ],
             {}
         );
@@ -74,7 +74,7 @@ export default {
                     user_id: 2,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                
+                },
             ],
             {}
         );
@@ -94,10 +94,10 @@ export default {
                     workspace_id: 1,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                                
+                },
             ],
             {}
-        );  
+        );
         await queryInterface.bulkInsert(
             "Lists",
             [
@@ -114,39 +114,41 @@ export default {
                     board_id: 1,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },   
+                },
                 {
                     name: "Done",
                     order: 2,
                     board_id: 1,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                             
+                },
             ],
             {}
-        );   
+        );
         await queryInterface.bulkInsert(
             "Cards",
             [
                 {
                     name: "Create the architecture",
                     type: 1,
-                    description: "Design and define the architecure of the course",
+                    description:
+                        "Design and define the architecure of the course",
                     list_id: 1,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },  
+                },
                 {
                     name: "Create account AWS",
                     type: 1,
-                    description: "Create a new free tier accout at AWS to be used on the course",
+                    description:
+                        "Create a new free tier accout at AWS to be used on the course",
                     list_id: 3,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                                           
+                },
             ],
             {}
-        );   
+        );
         await queryInterface.bulkInsert(
             "UsersCards",
             [
@@ -155,22 +157,22 @@ export default {
                     user_id: 3,
                     created_at: new Date(),
                     updated_at: new Date(),
-                }, 
+                },
                 {
                     card_id: 1,
                     user_id: 4,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                 
+                },
                 {
                     card_id: 2,
                     user_id: 3,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                                           
+                },
             ],
             {}
-        );  
+        );
         await queryInterface.bulkInsert(
             "Invites",
             [
@@ -179,22 +181,22 @@ export default {
                     url: `http://localhost/${uuidv4()}`,
                     created_at: new Date(),
                     updated_at: new Date(),
-                }, 
+                },
                 {
                     board_id: 1,
                     url: `http://localhost/${uuidv4()}`,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                 
+                },
                 {
                     board_id: 2,
                     url: `http://localhost/${uuidv4()}`,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                                           
+                },
             ],
             {}
-        );  
+        );
         await queryInterface.bulkInsert(
             "Labels",
             [
@@ -204,45 +206,45 @@ export default {
                     color: "Blue",
                     created_at: new Date(),
                     updated_at: new Date(),
-                }, 
+                },
                 {
                     board_id: 1,
                     name: "Production",
                     color: "Green",
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                 
+                },
                 {
                     board_id: 1,
                     name: "Block",
                     color: "Yellow",
                     created_at: new Date(),
                     updated_at: new Date(),
-                },  
+                },
                 {
                     board_id: 2,
                     name: "Test",
                     color: "Blue",
                     created_at: new Date(),
                     updated_at: new Date(),
-                }, 
+                },
                 {
                     board_id: 2,
                     name: "Production",
                     color: "Green",
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                 
+                },
                 {
                     board_id: 2,
                     name: "Block",
                     color: "Yellow",
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                                                          
+                },
             ],
             {}
-        ); 
+        );
         await queryInterface.bulkInsert(
             "LabelsCards",
             [
@@ -251,22 +253,22 @@ export default {
                     label_id: 1,
                     created_at: new Date(),
                     updated_at: new Date(),
-                }, 
+                },
                 {
                     card_id: 1,
                     label_id: 2,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                 
+                },
                 {
                     card_id: 1,
                     label_id: 3,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                                           
+                },
             ],
             {}
-        );   
+        );
         await queryInterface.bulkInsert(
             "Checklists",
             [
@@ -276,24 +278,57 @@ export default {
                     is_done: false,
                     created_at: new Date(),
                     updated_at: new Date(),
-                }, 
+                },
                 {
                     card_id: 1,
                     name: "Check 02",
                     is_done: false,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                 
+                },
                 {
                     card_id: 2,
                     name: "Check 01",
                     is_done: true,
                     created_at: new Date(),
                     updated_at: new Date(),
-                },                                           
+                },
             ],
             {}
-        );                                                     
+        );
+        await queryInterface.bulkInsert(
+            "Activities",
+            [
+                {
+                    description:
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                    card_id: 1,
+                    user_id: 1,
+                    board_id: 1,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },
+                {
+                    description:
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                    card_id: 2,
+                    user_id: 1,
+                    board_id: 1,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },
+                {
+                    description:
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                    card_id: 1,
+                    user_id: 2,
+                    board_id: 1,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },
+            ],
+            {}
+        );
     },
 
     down: async (queryInterface, Sequelize) => {
@@ -307,6 +342,7 @@ export default {
         await queryInterface.bulkDelete("Labels", null, {});
         await queryInterface.bulkDelete("LabelsCards", null, {});
         await queryInterface.bulkDelete("Checklists", null, {});
+        await queryInterface.bulkDelete("Activities", null, {});
     },
 };
 

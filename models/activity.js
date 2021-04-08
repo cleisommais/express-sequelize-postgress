@@ -16,17 +16,14 @@ export default (sequelize, DataTypes) => {
             },
             cardId: {
                 type: DataTypes.INTEGER,
-                unique: "nameCardActivity",
                 allowNull: false,
             },
             userId: {
                 type: DataTypes.INTEGER,
-                unique: "nameCardActivity",
                 allowNull: false,
             },
             boardId: {
                 type: DataTypes.INTEGER,
-                unique: "nameCardActivity",
                 allowNull: false,
             },
         },

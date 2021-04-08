@@ -505,9 +505,59 @@ export default {
                 },
             }
         );
-
+        await queryInterface.createTable(
+            "Activities",
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER,
+                },
+                description: {
+                    type: Sequelize.TEXT,
+                    allowNull: false,
+                },                              
+                card_id: {
+                    type: Sequelize.INTEGER,
+                    allowNull: true,
+                    onDelete: "CASCADE",
+                    references: {
+                        model: "Cards",
+                        key: "id",
+                    },
+                },
+                user_id: {
+                    type: Sequelize.INTEGER,
+                    allowNull: true,
+                    onDelete: "CASCADE",
+                    references: {
+                        model: "Users",
+                        key: "id",
+                    },
+                },    
+                board_id: {
+                    type: Sequelize.INTEGER,
+                    allowNull: true,
+                    onDelete: "CASCADE",
+                    references: {
+                        model: "Boards",
+                        key: "id",
+                    },
+                },                            
+                created_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+                updated_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+            },
+        );
     },
     down: async (queryInterface, Sequelize) => {
+        await queryInterface.dropTable("Activities");
         await queryInterface.dropTable("Checklists");
         await queryInterface.dropTable("LabelsCards");
         await queryInterface.dropTable("Labels");
