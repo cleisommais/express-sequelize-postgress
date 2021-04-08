@@ -329,6 +329,33 @@ export default {
             ],
             {}
         );
+        await queryInterface.bulkInsert(
+            "Attachments",
+            [
+                {
+                    name: "File 01",
+                    url: "http://localhost/folders/public/file01.pdf",
+                    card_id: 1,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },
+                {
+                    name: "File 02",
+                    url: "http://localhost/folders/public/file02.pdf",
+                    card_id: 1,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },
+                {
+                    name: "File 01",
+                    url: "http://localhost/folders/public/file01.pdf",
+                    card_id: 2,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },
+            ],
+            {}
+        );
     },
 
     down: async (queryInterface, Sequelize) => {
@@ -343,6 +370,7 @@ export default {
         await queryInterface.bulkDelete("LabelsCards", null, {});
         await queryInterface.bulkDelete("Checklists", null, {});
         await queryInterface.bulkDelete("Activities", null, {});
+        await queryInterface.bulkDelete("Attachments", null, {});
     },
 };
 

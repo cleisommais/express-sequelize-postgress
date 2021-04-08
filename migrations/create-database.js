@@ -555,8 +555,55 @@ export default {
                 },
             },
         );
+        await queryInterface.createTable(
+            "Attachments",
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER,
+                },
+                name: {
+                    type: Sequelize.STRING,
+                    unique: 'nameCardAttachment',
+                    allowNull: false,
+                },                 
+                url: {
+                    type: Sequelize.STRING,
+                    allowNull: false,
+                },                              
+                card_id: {
+                    type: Sequelize.INTEGER,
+                    allowNull: true,
+                    unique: 'nameCardAttachment',                    
+                    onDelete: "CASCADE",
+                    references: {
+                        model: "Cards",
+                        key: "id",
+                    },
+                },                            
+                created_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+                updated_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+            },
+            {
+                uniqueKeys: {
+                    unique_tag: {
+                        customIndex: true,
+                        fields: ["card_id", "name"],
+                    },
+                },
+            }
+        );        
     },
     down: async (queryInterface, Sequelize) => {
+        await queryInterface.dropTable("Attachments");
         await queryInterface.dropTable("Activities");
         await queryInterface.dropTable("Checklists");
         await queryInterface.dropTable("LabelsCards");
