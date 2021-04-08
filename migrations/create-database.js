@@ -326,8 +326,60 @@ export default {
                 },
             }
         );
+        await queryInterface.createTable(
+            "Invites",
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER,
+                },
+                url: {
+                    type: Sequelize.STRING,
+                    allowNull: false,
+                },
+                board_id: {
+                    type: Sequelize.INTEGER,
+                    unique: "inviteUnique",
+                    allowNull: true,
+                    onDelete: "CASCADE",
+                    references: {
+                        model: "Boards",
+                        key: "id",
+                    },
+                },
+                workspace_id: {
+                    type: Sequelize.INTEGER,
+                    unique: "inviteUnique",
+                    allowNull: true,
+                    onDelete: "CASCADE",
+                    references: {
+                        model: "Workspaces",
+                        key: "id",
+                    },
+                },
+                created_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+                updated_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+            },
+            {
+                uniqueKeys: {
+                    unique_tag: {
+                        customIndex: true,
+                        fields: ["board_id", "workspace_id", "url"],
+                    },
+                },
+            }
+        );
     },
     down: async (queryInterface, Sequelize) => {
+        await queryInterface.dropTable("Invites");
         await queryInterface.dropTable("UsersCards");
         await queryInterface.dropTable("Cards");
         await queryInterface.dropTable("Lists");

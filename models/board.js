@@ -5,6 +5,7 @@ export default (sequelize, DataTypes) => {
         static associate(models) {
             this.belongsTo(models.Workspace, { foreignKey: "workspaceId" });
             this.hasMany(models.List, { foreignKey: "boardId" });
+            this.hasMany(models.Invite, { foreignKey: "boardId" });            
         }
     }
     Board.init(
