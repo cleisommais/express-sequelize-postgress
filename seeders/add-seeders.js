@@ -169,7 +169,31 @@ export default {
                 },                                           
             ],
             {}
-        );                          
+        );  
+        await queryInterface.bulkInsert(
+            "Invites",
+            [
+                {
+                    workspace_id: 1,
+                    url: "http://test.com/xpofsfisaoifaljk",
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                }, 
+                {
+                    board_id: 1,
+                    url: "http://test.com/kljfosijlkmmlkoiuuf",
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                 
+                {
+                    board_id: 2,
+                    url: "http://test.com/ytutqurmoiuosvxcvwe4",
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                                           
+            ],
+            {}
+        );                                 
     },
 
     down: async (queryInterface, Sequelize) => {
@@ -179,6 +203,7 @@ export default {
         await queryInterface.bulkDelete("Lists", null, {});
         await queryInterface.bulkDelete("Cards", null, {});
         await queryInterface.bulkDelete("UsersCards", null, {});
+        await queryInterface.bulkDelete("Invites", null, {});
     },
 };
 

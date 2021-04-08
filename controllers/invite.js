@@ -59,7 +59,6 @@ const getInviteById = async (request, response, next) => {
             response.status(404).json({
                 message: `Invite id ${id} not found`,
             });
-            console.log(`Invite id ${id} not found`);
             next(`Invite id ${id} not found`);
         } else {
             request.invite = invite;
@@ -88,7 +87,6 @@ const updateInviteById = async (request, response, next) => {
         let invite = await Invite.update(request.body, {
             where: { id: inviteId },
         });
-        console.log(invite);
         if (invite == 1) {
             response.status(202).json({
                 message: "Invite updated",
@@ -119,7 +117,6 @@ const deleteInviteById = async (request, response, next) => {
     try {
         const inviteId = request.params.id;
         let invite = await Invite.destroy({ where: { id: inviteId } });
-        console.log(invite);
         if (invite == 1) {
             response.status(204).send();
         } else {

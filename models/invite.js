@@ -3,8 +3,14 @@ import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
     class Invite extends Model {
         static associate(models) {
-            this.belongsTo(models.Workspace, { foreignKey: "workspaceId" });
-            this.belongsTo(models.Board, { foreignKey: "boardId" });
+            this.belongsTo(models.Workspace, {
+                foreignKey: "workspaceId",
+                allowNull: true,
+            });
+            this.belongsTo(models.Board, {
+                foreignKey: "boardId",
+                allowNull: true,
+            });
         }
     }
     Invite.init(
