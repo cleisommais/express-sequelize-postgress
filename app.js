@@ -9,10 +9,11 @@ import boardRouter from "./routes/board";
 import listRouter from "./routes/list";
 import cardRouter from "./routes/card";
 import inviteRouter from "./routes/invite";
+import labelRouter from "./routes/label";
 
 const app = express();
 
-app.use(logger("dev"));
+app.use(logger(process.env.ENVIRONMENT || "dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -24,5 +25,6 @@ app.use("/boards", boardRouter);
 app.use("/lists", listRouter);
 app.use("/cards", cardRouter);
 app.use("/invites", inviteRouter);
+app.use("/labels", labelRouter);
 
 export default app;

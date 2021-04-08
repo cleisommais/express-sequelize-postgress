@@ -282,12 +282,6 @@ export default {
         await queryInterface.createTable(
             "UsersCards",
             {
-                id: {
-                    allowNull: false,
-                    autoIncrement: true,
-                    primaryKey: true,
-                    type: Sequelize.INTEGER,
-                },
                 card_id: {
                     type: Sequelize.INTEGER,
                     unique: "UserCardUnique",
@@ -377,8 +371,98 @@ export default {
                 },
             }
         );
+        await queryInterface.createTable(
+            "Labels",
+            {
+                id: {
+                    allowNull: false,
+                    autoIncrement: true,
+                    primaryKey: true,
+                    type: Sequelize.INTEGER,
+                },
+                name: {
+                    type: Sequelize.STRING,
+                    allowNull: false,
+                    unique: "uniqueLabel",
+                },
+                color: {
+                    type: Sequelize.STRING,
+                    allowNull: false,
+                    unique: "uniqueLabel",
+                },                
+                board_id: {
+                    type: Sequelize.INTEGER,
+                    unique: "uniqueLabel",
+                    allowNull: true,
+                    onDelete: "CASCADE",
+                    references: {
+                        model: "Boards",
+                        key: "id",
+                    },
+                },
+                created_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+                updated_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+            },
+            {
+                uniqueKeys: {
+                    unique_tag: {
+                        customIndex: true,
+                        fields: ["board_id", "name"],
+                    },
+                },
+            }
+        );
+        await queryInterface.createTable(
+            "LabelsCards",
+            {
+                card_id: {
+                    type: Sequelize.INTEGER,
+                    unique: "LabelsCardsUnique",
+                    allowNull: false,
+                    onDelete: "CASCADE",
+                    references: {
+                        model: "Cards",
+                        key: "id",
+                    },
+                },
+                label_id: {
+                    type: Sequelize.INTEGER,
+                    unique: "LabelsCardsUnique",
+                    allowNull: false,
+                    onDelete: "CASCADE",
+                    references: {
+                        model: "Labels",
+                        key: "id",
+                    },
+                },
+                created_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+                updated_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                },
+            },
+            {
+                uniqueKeys: {
+                    unique_tag: {
+                        customIndex: true,
+                        fields: ["card_id", "label_id"],
+                    },
+                },
+            }
+        );
     },
     down: async (queryInterface, Sequelize) => {
+        await queryInterface.dropTable("LabelsCards");
+        await queryInterface.dropTable("Labels");
         await queryInterface.dropTable("Invites");
         await queryInterface.dropTable("UsersCards");
         await queryInterface.dropTable("Cards");

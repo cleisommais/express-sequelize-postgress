@@ -1,6 +1,6 @@
-import { ValidationError, QueryInterface } from "sequelize";
+import { ValidationError } from "sequelize";
 import model from "../models";
-const { Card, User, UserCard } = model;
+const { Card, User, UserCard, LabelCard, Label } = model;
 
 const getAllCards = async (request, response, next) => {
     //Retrieve all cards
@@ -236,6 +236,96 @@ const listAllUsersFromCard = async (request, response, next) => {
     }
 };
 
+const addLabelsToCard = async (request, response, next) => {
+    try {
+        if (request.body === "" || request.body == null) {
+            response.status(400).json({
+                message: "Request body required",
+            });
+        } else {
+            const cardId = request.params.id;
+            const labelIdArray = request.body;
+            let labelCardArray = [];
+            labelIdArray.forEach((element) => {
+                labelCardArray.push({
+                    labelId: element.labelId,
+                    cardId: cardId,
+                });
+            });
+            let labelCard = await LabelCard.bulkCreate(labelCardArray);
+            response.status(201).send(labelCard);
+        }
+    } catch (error) {
+        const message = processValidationError(error);
+        if (error instanceof ValidationError) {
+            response.status(400).json({
+                message: message,
+            });
+        } else {
+            console.log(error);
+            response.status(500).json({
+                message: error.message,
+            });
+        }
+        next(error);
+    }
+};
+
+const removeLabelsFromCard = async (request, response, next) => {
+    try {
+        const cardId = parseInt(request.params.id);
+        if (request.body === "" || request.body == null) {
+            response.status(400).json({
+                message: "Request body required",
+            });
+        } else {
+            const labelIdArray = request.body;
+            labelIdArray.forEach(async (element) => {
+                await LabelCard.destroy({
+                    where: { labelId: element.labelId, cardId: cardId },
+                });
+            });
+            response.status(204).send();
+        }
+    } catch (error) {
+        const message = processValidationError(error);
+        if (error instanceof ValidationError) {
+            response.status(400).json({
+                message: message,
+            });
+        } else {
+            console.log(error);
+            response.status(500).json({
+                message: error.message,
+            });
+        }
+        next(error);
+    }
+};
+
+const listAllLabelsFromCard = async (request, response, next) => {
+    try {
+        const id = request.params.id;
+        let card = await Card.findByPk(id, {
+            include: [{ model: Label, required: false }],
+        });
+        response.status(200).send(card);
+    } catch (error) {
+        const message = processValidationError(error);
+        if (error instanceof ValidationError) {
+            response.status(400).json({
+                message: message,
+            });
+        } else {
+            console.log(error);
+            response.status(500).json({
+                message: error.message,
+            });
+        }
+        next(error);
+    }
+};
+
 function processValidationError(error) {
     let errorResponseConcat = "";
     if (error instanceof ValidationError) {
@@ -262,4 +352,7 @@ export {
     addUsersToCard,
     removeUsersFromCard,
     listAllUsersFromCard,
+    addLabelsToCard,
+    removeLabelsFromCard,
+    listAllLabelsFromCard,
 };
