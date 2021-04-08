@@ -154,6 +154,7 @@ function processValidationError(error) {
             }
         });
     }
+    console.log("Error response: " + errorResponseConcat);
     return errorResponseConcat;
 }
 
