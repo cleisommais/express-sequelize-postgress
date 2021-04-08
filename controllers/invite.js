@@ -1,4 +1,5 @@
 import { ValidationError } from "sequelize";
+import { v4 as uuidv4 } from 'uuid';
 import model from "../models";
 const { Invite } = model;
 
@@ -31,6 +32,10 @@ const createInvite = async (request, response, next) => {
                 message: "Request body required",
             });
         } else {
+            if(!request.body.url){                
+                let ip = request.ip.split(":")
+                request.body.url = `http://${ip[ip.length - 1]}/${uuidv4()}`;
+            }
             let invite = await Invite.create(request.body);
             response.status(201).send(invite);
         }

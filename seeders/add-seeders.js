@@ -1,5 +1,6 @@
 import "regenerator-runtime/runtime";
 import crypto from "crypto";
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
     up: async (queryInterface, Sequelize) => {
@@ -175,19 +176,19 @@ export default {
             [
                 {
                     workspace_id: 1,
-                    url: "http://test.com/xpofsfisaoifaljk",
+                    url: `http://localhost/${uuidv4()}`,
                     created_at: new Date(),
                     updated_at: new Date(),
                 }, 
                 {
                     board_id: 1,
-                    url: "http://test.com/kljfosijlkmmlkoiuuf",
+                    url: `http://localhost/${uuidv4()}`,
                     created_at: new Date(),
                     updated_at: new Date(),
                 },                 
                 {
                     board_id: 2,
-                    url: "http://test.com/ytutqurmoiuosvxcvwe4",
+                    url: `http://localhost/${uuidv4()}`,
                     created_at: new Date(),
                     updated_at: new Date(),
                 },                                           
