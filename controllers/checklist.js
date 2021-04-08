@@ -59,7 +59,6 @@ const getChecklistById = async (request, response, next) => {
             response.status(404).json({
                 message: `Checklist id ${id} not found`,
             });
-            console.log(`Checklist id ${id} not found`);
             next(`Checklist id ${id} not found`);
         } else {
             request.checklist = checklist;
@@ -88,7 +87,6 @@ const updateChecklistById = async (request, response, next) => {
         let checklist = await Checklist.update(request.body, {
             where: { id: checklistId },
         });
-        console.log(checklist);
         if (checklist == 1) {
             response.status(202).json({
                 message: "Checklist updated",
@@ -119,7 +117,6 @@ const deleteChecklistById = async (request, response, next) => {
     try {
         const checklistId = request.params.id;
         let checklist = await Checklist.destroy({ where: { id: checklistId } });
-        console.log(checklist);
         if (checklist == 1) {
             response.status(204).send();
         } else {
