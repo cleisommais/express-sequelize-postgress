@@ -1200,6 +1200,205 @@
 			]
 		},
 		{
+			"name": "Label",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"labelId\", jsonData.id);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"Pre-Test\",\r\n        \"color\": \"Gray\",\r\n        \"boardId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/labels",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"labels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/labels",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"labels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/labels/{{labelId}}",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"labels",
+								"{{labelId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 202\", function () {\r",
+									"    pm.response.to.have.status(202);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"color\": \"Dark Gray\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/labels/{{labelId}}",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"labels",
+								"{{labelId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/labels/{{labelId}}",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"labels",
+								"{{labelId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Card",
 			"item": [
 				{
@@ -1536,6 +1735,147 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Add Labels to Card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"labelId\": 1\r\n    },\r\n    {\r\n        \"labelId\": 2\r\n    },\r\n    {\r\n        \"labelId\": 5\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/cards/{{cardId}}/labels",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"cards",
+								"{{cardId}}",
+								"labels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Labels by Card Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/cards/{{cardId}}/labels",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"cards",
+								"{{cardId}}",
+								"labels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Labels from the Card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"labelId\": 1\r\n    },\r\n    {\r\n        \"labelId\": 2\r\n    }    \r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/cards/{{cardId}}/labels",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"cards",
+								"{{cardId}}",
+								"labels"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
@@ -1582,32 +1922,44 @@
 	],
 	"variable": [
 		{
+			"id": "76c2aacc-a8f1-40d6-b860-adfd8724d5c8",
 			"key": "userId",
 			"value": 4
 		},
 		{
+			"id": "668d5dcb-0447-46a8-9ba4-df9d5f01f34c",
 			"key": "workspaceId",
 			"value": 1
 		},
 		{
+			"id": "d18d5e41-82f3-4983-b9b9-93c68581451e",
 			"key": "subscriptionId",
 			"value": 1
 		},
 		{
+			"id": "c1af4784-d67f-44a6-a274-ab9c675f92d0",
 			"key": "inviteId",
 			"value": 2
 		},
 		{
+			"id": "e22b9c6a-8e23-4608-80d3-3b11d66b34fa",
 			"key": "boardId",
 			"value": 2
 		},
 		{
+			"id": "ecca0186-8861-4e31-bf18-ea3779288c7f",
 			"key": "listId",
 			"value": "2"
 		},
 		{
+			"id": "4de2273f-6bbe-4bb9-8cf5-f4abad783a66",
 			"key": "cardId",
 			"value": "2"
+		},
+		{
+			"id": "e6e40547-26e6-42cf-8ded-2af4b222ffbe",
+			"key": "labelId",
+			"value": ""
 		}
 	]
 }
