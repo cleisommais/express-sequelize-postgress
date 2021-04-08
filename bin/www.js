@@ -8,6 +8,8 @@ import app from '../app';
 import debugLib from 'debug';
 const debug = debugLib('express-sequelize-postgress:server');
 import http from 'http';
+import dotenv from 'dotenv';
+dotenv.config();
 
 /**
  * Get port from environment and store in Express.
