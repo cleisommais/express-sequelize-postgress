@@ -10,6 +10,7 @@ export default (sequelize, DataTypes) => {
             });
             this.belongsToMany(models.Label, { through: models.LabelCard, foreignKey: "cardId" });  
             this.hasMany(models.Checklist, { foreignKey: "cardId" });
+            this.hasMany(models.Activity, { foreignKey: "cardId" });   
         }
     }
     Card.init(

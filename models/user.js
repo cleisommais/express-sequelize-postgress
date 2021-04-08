@@ -7,6 +7,7 @@ export default (sequelize, DataTypes) => {
       this.hasOne(models.Workspace, { foreignKey: "userId" });
       this.hasOne(models.Subscription, { foreignKey: "userId" });
       this.belongsToMany(models.Card, { through: models.UserCard, foreignKey: "userId" });
+      this.hasMany(models.Activity, { foreignKey: "userId" });   
     }
   }
   User.init(

@@ -11,6 +11,7 @@ import cardRouter from "./routes/card";
 import inviteRouter from "./routes/invite";
 import labelRouter from "./routes/label";
 import checklistRouter from "./routes/checklist";
+import activityRouter from "./routes/activity";
 
 const app = express();
 
@@ -28,5 +29,6 @@ app.use("/cards", cardRouter);
 app.use("/invites", inviteRouter);
 app.use("/labels", labelRouter);
 app.use("/checklists", checklistRouter);
+app.use("/activities", activityRouter);
 
 export default app;
