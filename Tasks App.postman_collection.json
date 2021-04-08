@@ -1399,6 +1399,205 @@
 			]
 		},
 		{
+			"name": "Checklist",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"checklistId\", jsonData.id);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"Check 02\",\r\n        \"isDone\": false,\r\n        \"cardId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/checklists",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"checklists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/checklists",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"checklists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/checklists/{{checklistId}}",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"checklists",
+								"{{checklistId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 202\", function () {\r",
+									"    pm.response.to.have.status(202);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"isDone\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/checklists/{{checklistId}}",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"checklists",
+								"{{checklistId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/checklists/{{checklistId}}",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"checklists",
+								"{{checklistId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Card",
 			"item": [
 				{
@@ -1922,43 +2121,48 @@
 	],
 	"variable": [
 		{
-			"id": "76c2aacc-a8f1-40d6-b860-adfd8724d5c8",
+			"id": "f724d36c-ecaf-43fd-98aa-3c9382fe4903",
 			"key": "userId",
 			"value": 4
 		},
 		{
-			"id": "668d5dcb-0447-46a8-9ba4-df9d5f01f34c",
+			"id": "27b63137-b0fb-4be9-88fe-68a57cb9c93a",
 			"key": "workspaceId",
 			"value": 1
 		},
 		{
-			"id": "d18d5e41-82f3-4983-b9b9-93c68581451e",
+			"id": "d1ff02b5-7312-4198-beb6-f8aa075bb4ea",
 			"key": "subscriptionId",
 			"value": 1
 		},
 		{
-			"id": "c1af4784-d67f-44a6-a274-ab9c675f92d0",
+			"id": "a9caf36c-bd3c-47b9-a0ed-015600850ccd",
 			"key": "inviteId",
 			"value": 2
 		},
 		{
-			"id": "e22b9c6a-8e23-4608-80d3-3b11d66b34fa",
+			"id": "957236ad-c941-40a1-a426-e80c0fe4146e",
 			"key": "boardId",
 			"value": 2
 		},
 		{
-			"id": "ecca0186-8861-4e31-bf18-ea3779288c7f",
+			"id": "378aa445-acff-4e0f-83dd-b536379d29af",
 			"key": "listId",
 			"value": "2"
 		},
 		{
-			"id": "4de2273f-6bbe-4bb9-8cf5-f4abad783a66",
+			"id": "37969cce-735c-468f-9b83-53afa77d3c2c",
 			"key": "cardId",
 			"value": "2"
 		},
 		{
-			"id": "e6e40547-26e6-42cf-8ded-2af4b222ffbe",
+			"id": "b786a595-39a2-4c90-8dde-6b9e980b117f",
 			"key": "labelId",
+			"value": ""
+		},
+		{
+			"id": "5c31e14b-58ae-4c7f-bff7-8c6b42e3453f",
+			"key": "checklistId",
 			"value": ""
 		}
 	]
