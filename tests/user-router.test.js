@@ -3,7 +3,7 @@ import request from "supertest";
 const app = require("../app").default;
 let id = "";
 describe("User API", () => {
-    it("should create a new user", async () => {
+    it("should create an new user", async () => {
       const res = await request(app).post("/users").send({
         lastName: "Doe",
         firstName: "Bob",
@@ -25,12 +25,12 @@ describe("User API", () => {
         ])
       );
     }),
-      it("should show a user", async () => {
+      it("should show an user", async () => {
         const res = await request(app).get("/users/" + id);
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty("email", "bob@doe.com");
       }),    
-    it("should update a user", async () => {
+    it("should update an user", async () => {
       const res = await request(app).put("/users/" + id).send({
         firstName: "Ze",
         lastName: "Doe",
@@ -40,7 +40,7 @@ describe("User API", () => {
       expect(res.statusCode).toEqual(202);
       expect(res.body).toHaveProperty("message", "User updated");
     }),
-    it("should delete a user", async () => {
+    it("should delete an user", async () => {
       const res = await request(app).del("/users/" + id);
       expect(res.statusCode).toEqual(204);
     });
