@@ -1,6 +1,6 @@
 import { ValidationError } from "sequelize";
 import model from "../models";
-const { Card, User, UserCard, LabelCard } = model;
+const { Card, User, UserCard, LabelCard, Label } = model;
 
 const getAllCards = async (request, response, next) => {
     //Retrieve all cards

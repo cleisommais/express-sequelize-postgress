@@ -83,8 +83,43 @@ describe("Cards API", () => {
                 ]);
             expect(res.statusCode).toEqual(204);
         }),
+        it("Should Add Labels to Card", async () => {
+            const res = await request(app)
+                .post("/cards/" + id + "/labels")
+                .send([
+                    {
+                        labelId: 1,
+                    },
+                    {
+                        labelId: 2,
+                    },
+                    {
+                        labelId: 3,
+                    },
+                ]);
+            expect(res.statusCode).toEqual(201);
+        }),
+        it("Should Retrieve all Labels by Card Id", async () => {
+            const res = await request(app).get("/cards/" + id + "/labels");
+            expect(res.statusCode).toEqual(200);
+        }),
+        it("Should Remove Labels from the Card", async () => {
+            const res = await request(app)
+                .delete("/cards/" + id + "/labels")
+                .send([
+                    {
+                        labelId: 1,
+                    },
+                    {
+                        labelId: 2,
+                    },
+                ]);
+            expect(res.statusCode).toEqual(204);
+        }),
+
         it("Should delete a cards", async () => {
             const res = await request(app).del("/cards/" + id);
             expect(res.statusCode).toEqual(204);
         });
 });
+
