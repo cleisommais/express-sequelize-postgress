@@ -23,4 +23,10 @@ router
     .post(cardController.addUsersToCard)
     .delete(cardController.removeUsersFromCard);
 
+router
+    .route("/:id/labels")
+    .get(cardController.listAllLabelsFromCard)
+    .post(cardController.addLabelsToCard)
+    .delete(cardController.removeLabelsFromCard);
+
 export default router;
