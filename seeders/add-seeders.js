@@ -266,7 +266,34 @@ export default {
                 },                                           
             ],
             {}
-        );                                                
+        );   
+        await queryInterface.bulkInsert(
+            "Checklists",
+            [
+                {
+                    card_id: 1,
+                    name: "Check 01",
+                    is_done: false,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                }, 
+                {
+                    card_id: 1,
+                    name: "Check 02",
+                    is_done: false,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                 
+                {
+                    card_id: 2,
+                    name: "Check 01",
+                    is_done: true,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                                           
+            ],
+            {}
+        );                                                     
     },
 
     down: async (queryInterface, Sequelize) => {
@@ -279,6 +306,7 @@ export default {
         await queryInterface.bulkDelete("Invites", null, {});
         await queryInterface.bulkDelete("Labels", null, {});
         await queryInterface.bulkDelete("LabelsCards", null, {});
+        await queryInterface.bulkDelete("Checklists", null, {});
     },
 };
 
