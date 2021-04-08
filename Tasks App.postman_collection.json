@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "049196e2-14cf-4e84-928a-a327a8e36650",
+		"_postman_id": "c3b4ac94-2825-4903-a501-18af540d5725",
 		"name": "Tasks App",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1598,6 +1598,205 @@
 			]
 		},
 		{
+			"name": "Activity",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"activityId\", jsonData.id);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.\",\r\n    \"cardId\": 1,\r\n    \"userId\": 3,\r\n    \"boardId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/activities",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/activities",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/activities/{{activityId}}",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"activities",
+								"{{activityId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 202\", function () {\r",
+									"    pm.response.to.have.status(202);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"description\": \"There are ...\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/activities/{{activityId}}",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"activities",
+								"{{activityId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/activities/{{activityId}}",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"activities",
+								"{{activityId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Card",
 			"item": [
 				{
@@ -2121,48 +2320,43 @@
 	],
 	"variable": [
 		{
-			"id": "f724d36c-ecaf-43fd-98aa-3c9382fe4903",
 			"key": "userId",
 			"value": 4
 		},
 		{
-			"id": "27b63137-b0fb-4be9-88fe-68a57cb9c93a",
 			"key": "workspaceId",
 			"value": 1
 		},
 		{
-			"id": "d1ff02b5-7312-4198-beb6-f8aa075bb4ea",
 			"key": "subscriptionId",
 			"value": 1
 		},
 		{
-			"id": "a9caf36c-bd3c-47b9-a0ed-015600850ccd",
 			"key": "inviteId",
 			"value": 2
 		},
 		{
-			"id": "957236ad-c941-40a1-a426-e80c0fe4146e",
 			"key": "boardId",
 			"value": 2
 		},
 		{
-			"id": "378aa445-acff-4e0f-83dd-b536379d29af",
 			"key": "listId",
 			"value": "2"
 		},
 		{
-			"id": "37969cce-735c-468f-9b83-53afa77d3c2c",
 			"key": "cardId",
 			"value": "2"
 		},
 		{
-			"id": "b786a595-39a2-4c90-8dde-6b9e980b117f",
 			"key": "labelId",
 			"value": ""
 		},
 		{
-			"id": "5c31e14b-58ae-4c7f-bff7-8c6b42e3453f",
 			"key": "checklistId",
+			"value": ""
+		},
+		{
+			"key": "activityId",
 			"value": ""
 		}
 	]

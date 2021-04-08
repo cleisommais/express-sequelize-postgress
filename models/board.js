@@ -7,6 +7,7 @@ export default (sequelize, DataTypes) => {
             this.hasMany(models.List, { foreignKey: "boardId" });
             this.hasMany(models.Invite, { foreignKey: "boardId" });            
             this.hasMany(models.Label, { foreignKey: "boardId" });    
+            this.hasMany(models.Activity, { foreignKey: "boardId" });   
         }
     }
     Board.init(
