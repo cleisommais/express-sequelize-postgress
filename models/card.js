@@ -8,6 +8,7 @@ export default (sequelize, DataTypes) => {
                 through: models.UserCard,
                 foreignKey: "cardId",
             });
+            this.hasMany(models.Invite, { foreignKey: "cardId" });
         }
     }
     Card.init(
