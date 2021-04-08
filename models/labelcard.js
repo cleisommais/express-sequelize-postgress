@@ -20,7 +20,7 @@ export default (sequelize, DataTypes) => {
         {
             sequelize,
             modelName: "LabelCard",
-            tableName: "LabelCards",
+            tableName: "LabelsCards",
             underscored: true,
         }
     );

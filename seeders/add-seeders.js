@@ -194,7 +194,79 @@ export default {
                 },                                           
             ],
             {}
-        );                                 
+        );  
+        await queryInterface.bulkInsert(
+            "Labels",
+            [
+                {
+                    board_id: 1,
+                    name: "Test",
+                    color: "Blue",
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                }, 
+                {
+                    board_id: 1,
+                    name: "Production",
+                    color: "Green",
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                 
+                {
+                    board_id: 1,
+                    name: "Block",
+                    color: "Yellow",
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },  
+                {
+                    board_id: 2,
+                    name: "Test",
+                    color: "Blue",
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                }, 
+                {
+                    board_id: 2,
+                    name: "Production",
+                    color: "Green",
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                 
+                {
+                    board_id: 2,
+                    name: "Block",
+                    color: "Yellow",
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                                                          
+            ],
+            {}
+        ); 
+        await queryInterface.bulkInsert(
+            "LabelsCards",
+            [
+                {
+                    card_id: 1,
+                    label_id: 1,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                }, 
+                {
+                    card_id: 1,
+                    label_id: 2,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                 
+                {
+                    card_id: 1,
+                    label_id: 3,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                },                                           
+            ],
+            {}
+        );                                                
     },
 
     down: async (queryInterface, Sequelize) => {
@@ -205,6 +277,8 @@ export default {
         await queryInterface.bulkDelete("Cards", null, {});
         await queryInterface.bulkDelete("UsersCards", null, {});
         await queryInterface.bulkDelete("Invites", null, {});
+        await queryInterface.bulkDelete("Labels", null, {});
+        await queryInterface.bulkDelete("LabelsCards", null, {});
     },
 };
 
