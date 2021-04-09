@@ -20,8 +20,8 @@ services:
       DB_USERNAME: developer
       DB_PASSWORD: 123456
       DB_NAME: trello_prod
-      DB_HOSTNAME: 127.0.0.1
-      DB_PORT: 5454
+      DB_HOSTNAME: postgres-server
+      DB_PORT: 5432
       DB_DIALECT: postgres
     command: sh -c 'npm run start'    
     volumes:
@@ -39,7 +39,7 @@ services:
     volumes:
        - postgres:/data/postgres
     ports:
-      - "5454:5432"
+      - "5432:5432"
     networks:
       - network
     restart: unless-stopped

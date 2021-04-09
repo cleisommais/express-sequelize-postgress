@@ -1,10 +1,21 @@
-# Project with (express + sequelize + postgres)
+# Project with (Node.j + Express + Sequelize ORM + PostgreSQL DB + Docker)
 @cleisommais
+
+Project designed to simulate the Trello tool, was created several unit tests to validate all endpoints created
+
+---
 
 ### Run the app
 * Development `npm run dev`
 * Debug `npm run debug`
 * Unit Test `npm run test`
+* Build `npm run build`
+
+---
+
+### Start project using docker-compose
+* Inside of the root project run `docker-compose up -d`
+Access using `localhost:3000`
 
 ---
 

@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./.env,./Dockerfile,./docker-compose.yml --copy-files",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore node_modules/**/*,migrations/**/*,seeders/**/*,tests/**/*,.babelrc,.env,package.json,Dockerfile,docker-compose.yml --no-copy-ignored",
     "start": "node bin/www.js",
-    "validate": "npm run lint; npm run test && npm outdated --depth 0",
+    "validate": "npm run test && npm outdated --depth 0",
     "debug": "set DEBUG=* & nodemon --exec babel-node ./bin/www.js",
     "dev": "nodemon --exec babel-node ./bin/www.js",
     "test": "cross-env NODE_ENV=test jest --testTimeout=5000 --runInBand --silence=true --detectOpenHandles",
@@ -28,10 +28,12 @@
     "@babel/cli": "^7.13.14",
     "@babel/core": "^7.13.14",
     "@babel/node": "^7.13.13",
+    "@babel/plugin-transform-runtime": "^7.13.15",
     "@babel/preset-env": "^7.13.12",
     "@babel/register": "^7.13.14",
     "cross-env": "^7.0.3",
     "dotenv": "^8.0.0",
+    "eslint": "^7.23.0",
     "jest": "^26.6.3",
     "nodemon": "^1.18.9",
     "regenerator-runtime": "^0.13.7",
@@ -43,7 +45,7 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "<rootDir>/dist/"
+      "/dist/"
     ],
     "coverageThreshold": {
       "global": {
