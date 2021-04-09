@@ -1,0 +1,71 @@
+version: '3.5'
+
+services:
+  trello-app-backend:
+    container_name: trello-app-backend
+    build:
+      context: .
+      args:
+        buildno: 1
+    image: trello-app-backend:latest
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres-server
+    links:
+      - postgres-server    
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DB_USERNAME: developer
+      DB_PASSWORD: 123456
+      DB_NAME: trello_prod
+      DB_HOSTNAME: postgres-server
+      DB_PORT: 5432
+      DB_DIALECT: postgres
+    command: sh -c 'npm run start'    
+    volumes:
+      - 'server:/data/backend/'  
+    networks:
+      - network  
+
+  postgres-server:
+    container_name: postgres-server
+    image: postgres
+    environment:
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: trello_prod
+    volumes:
+       - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - network
+    restart: unless-stopped
+  
+  pgadmin-client:
+    container_name: pgadmin-client
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: cleisommais@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 123456
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+       - pgadmin:/root/.pgadmin
+    links:
+    - postgres-server
+    ports:
+      - "8990:80"
+    networks:
+      - network
+    restart: unless-stopped
+
+networks:
+  network:
+    driver: bridge 
+
+volumes:
+    postgres:
+    pgadmin:
+    server:
