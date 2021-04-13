@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore node_modules/**/*,migrations/**/*,seeders/**/*,tests/**/*,.babelrc,.env,package.json,Dockerfile,docker-compose.yml --no-copy-ignored",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore node_modules/**/*,tests/**/*,.babelrc,.env,package.json,Dockerfile,docker-compose.yml --copy-files",
     "start": "node bin/www.js",
     "validate": "npm run test && npm outdated --depth 0",
     "debug": "set DEBUG=* & nodemon --exec babel-node ./bin/www.js",

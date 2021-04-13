@@ -13,7 +13,5 @@ FROM node:latest
 WORKDIR /usr/src/app
 # Copy the build from builder image
 COPY --from=builder /usr/src/app/dist/ ./
-COPY package*.json ./
-RUN npm install
 RUN ls -l
 CMD ["npm", "start"]
